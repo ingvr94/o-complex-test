@@ -80,14 +80,22 @@ function App() {
 
   // Загрузка данных отзывов
   useEffect(()=>{
-    axios.get('http://o-complex.com:1337/reviews')
+    axios.get('http://o-complex.com:1337/reviews',{
+      headers:{
+        'Content-Type':'application/json'
+      }
+    })
     .then(res=>setReviews(res.data))
   },[])
 
   // Загрузка данных товаров и подгрузка при достижении конца страницы
   useEffect(()=>{
     console.log(page)
-    axios.get(`http://o-complex.com:1337/products?page=${page}&page_size=3`)
+    axios.get(`http://o-complex.com:1337/products?page=${page}&page_size=3`,{
+      headers:{
+        'Content-Type':'application/json'
+      }
+    })
     .then(res=>{
       setGoods([...goods,...res.data.products])
       setPage(prevState=>prevState+1)
